@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
+import PostsShow from './components/posts_show';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -24,7 +25,8 @@ ReactDOM.render(
         <BrowserRouter>
             <div>
                 <Switch>
-                    <Route path="/posts/new" component={PostsNew} />                    
+                    <Route path="/posts/new" component={PostsNew} />
+                    <Route path="/posts/:id" component={PostsShow} />                    
                     <Route path="/" component={ PostsIndex } />
                 </Switch>
             </div>

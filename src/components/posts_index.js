@@ -22,7 +22,9 @@ class PostsIndex extends Component {
                 <li 
                     key={post.id}
                     className="list-group-item">
-                    {post.title}
+                    <Link to={`/posts/${post.id}`}>
+                        {post.title}
+                    </Link>
                 </li>
             );
         });
@@ -31,8 +33,8 @@ class PostsIndex extends Component {
     render() {
         return(  
             <div>
-                <div className="text-xs-right">
-                    <Link className="btn btn-primary" to="/posts/new">
+                <div className="flex-container">
+                    <Link className="btn btn-primary " to="/posts/new">
                         Add a Post
                     </Link>
                 </div>
