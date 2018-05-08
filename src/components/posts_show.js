@@ -18,10 +18,11 @@ class PostsShow extends Component {
 
     render() {
         const { post } = this.props;
-
+        
         if(!post) {
             return <div>Loading...</div>
         }
+        
         return (
             <div>
                 <div className="flex-container">
@@ -35,9 +36,11 @@ class PostsShow extends Component {
                 </div>
      
                 <h3>{post.title}</h3>
+                <h4>{post.category.name}</h4>
                 <p>{post.content}</p>
             </div>
         );
+        
     }
 }
 
