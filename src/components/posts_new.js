@@ -3,8 +3,14 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createPost } from '../actions';
+import { fetchCategories } from '../actions'
+import Select from '../components/select';
 
 class PostsNew extends Component {
+componentDidMount() {
+    this.props.fetchCategories();
+}
+
 renderField(field) {
     const { meta: { touched, error } } = field;
     const className = `form-group ${touched && error ? 'has-error' : ''}`;
@@ -31,6 +37,7 @@ onSubmit(values) {
 }
 
     render() {
+        console.log(this.props.categories)
         const { handleSubmit } = this.props
 
         return (
@@ -41,6 +48,13 @@ onSubmit(values) {
                     component={this.renderField}
                 />
                 
+                <Field
+                    label="Category"
+                    name="category"
+                    component={Select}
+                    options={this.props.categories}
+                />
+
                 <Field
                     label="Post Content"
                     name="content"
@@ -67,11 +81,15 @@ function validate(values) {
     return errors;
 }
 
+function mapStateToProps(state) {
+    return { categories: state.categories };
+}
+
 export default reduxForm({
     validate,
     form: 'PostsNewForm'
 })(
-    connect(null,{ createPost })(PostsNew)
+    connect(mapStateToProps, {createPost, fetchCategories})(PostsNew)
 );
 
 
