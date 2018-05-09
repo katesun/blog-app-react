@@ -12,17 +12,26 @@ const Select = (props) => {
     }
 
     if(props && props.options) {
+        //console.log(props)
+        const { meta: { touched, error } } = props; 
+        const className = `form-group ${touched && error ? 'has-error' : ''}`;
+
         return(
-            <div>
+            <div className={className}>
                 <div>{props.label}</div>
                 <select
+                    value=''
                     className="form-control"
                     {...props.input}>
+                        <option value=''>Select</option>
                         {props.options.map(option => renderSelectOptions(option))}
                         {/* {props.options.map(option => renderSelectOptions(option))} */}
                         {/* {Object.keys(props.options).map(id => renderSelectOptions(props.options[id]))} */}
                         {/* {Object.keys(props.options).map(renderSelectOptions)} */}
                 </select>
+                <div className="help-block"> 
+                    {touched ? error : ''}
+                </div>
             </div>
         )
     }
