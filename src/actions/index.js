@@ -33,7 +33,7 @@ export function createPost(values, callback) {
             'Content-Type': 'application/json',
         }
     }).then(() => callback());
-
+    console.log(values)
     return {
         type: CREATE_POST,
         payload: request

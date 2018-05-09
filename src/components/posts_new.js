@@ -7,37 +7,39 @@ import { fetchCategories } from '../actions'
 import Select from '../components/select';
 
 class PostsNew extends Component {
-componentDidMount() {
-    this.props.fetchCategories();
-}
+    componentDidMount() {
+        this.props.fetchCategories();
+    }
 
-renderField(field) {
-    const { meta: { touched, error } } = field;
-    const className = `form-group ${touched && error ? 'has-error' : ''}`;
+    renderField(field) {
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-error' : ''}`;
+        
+        return(
+            
+            <div className={className}>
+                <label>{field.label}</label>
+                <input 
+                    className="form-control"
+                    type="text"
+                    { ...field.input }
+                />
+                
+                <div className="help-block"> 
+                    {touched ? error : ''}
+                </div>            
+            </div>
+        );
+    }
 
-    return(
-        <div className={className}>
-            <label>{field.label}</label>
-            <input 
-                className="form-control"
-                type="text"
-                { ...field.input }
-            />
-            <div className="help-block"> 
-                {touched ? error : ''}
-            </div>            
-        </div>
-    );
-}
-
-onSubmit(values) {   
-    this.props.createPost(values, () => {
-        this.props.history.push('/');
-    });
-}
+    onSubmit(values) {   
+        this.props.createPost(values, () => {
+            this.props.history.push('/');
+        });
+    }
 
     render() {
-        console.log(this.props.categories)
+        
         const { handleSubmit } = this.props
 
         return (
@@ -50,7 +52,7 @@ onSubmit(values) {
                 
                 <Field
                     label="Category"
-                    name="category"
+                    name="categoryID"
                     component={Select}
                     options={this.props.categories}
                 />
@@ -73,9 +75,13 @@ function validate(values) {
     if(!values.title) {
         errors.title = "Enter a title";
     }
+
+    if(!values.categoryID) {
+        errors.category = "Select a category";
+    }
     
     if(!values.content) {
-        errors.content = "Enter some content please";
+        errors.content = "Enter some content";
     }
 
     return errors;
